@@ -55,7 +55,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       balance: "95,250.00",
       accountNumber: "****4521",
       icon: PiggyBank,
-      color: "bg-gradient-gold",
+      color: "bg-gradient-primary",
     },
     {
       type: "Current Account",
@@ -69,7 +69,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       balance: "125,000.00",
       accountNumber: "****2341",
       icon: TrendingUp,
-      color: "bg-primary",
+      color: "bg-gradient-primary",
     },
   ];
 
@@ -114,7 +114,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
             {accounts.map((account, index) => {
               const isFlipped = flippedCards.has(index);
               return (
-                <CarouselItem key={index} className="pl-2 basis-[95%]">
+                <CarouselItem key={index} className="pl-2 basis-[98%]">
                   <div 
                     className="relative h-40 cursor-pointer perspective-1000"
                     onClick={() => toggleCardFlip(index)}
