@@ -15,7 +15,10 @@ import {
   Landmark,
   DollarSign,
   Settings,
-  Menu
+  Menu,
+  Calendar,
+  FileText,
+  UserCog
 } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -81,6 +84,9 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
     { icon: CreditCard, label: "Cards", color: "bg-gradient-primary", action: "cards" },
     { icon: DollarSign, label: "Forex", color: "bg-gradient-accent", action: "forex" },
     { icon: Landmark, label: "Services", color: "bg-gradient-secondary", action: "services" },
+    { icon: Calendar, label: "Appointment", color: "bg-gradient-primary", action: "appointment" },
+    { icon: FileText, label: "New Account", color: "bg-gradient-accent", action: "apply-account" },
+    { icon: UserCog, label: "Update Profile", color: "bg-gradient-secondary", action: "update-profile" },
     { icon: Settings, label: "More", color: "bg-muted", action: "more" },
   ];
 
@@ -201,7 +207,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                 <div className={`${action.color} w-16 h-16 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow backdrop-blur-sm`}>
                   <action.icon className="h-6 w-6 text-primary-foreground drop-shadow-sm" />
                 </div>
-                <span className="text-xs text-foreground/80 font-medium">{action.label}</span>
+                <span className="text-xs text-foreground/80 font-medium text-center leading-tight">{action.label}</span>
               </button>
             ))}
           </div>
