@@ -58,21 +58,21 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       balance: "95,250.00",
       accountNumber: "****4521",
       icon: PiggyBank,
-      color: "bg-gradient-secondary",
+      color: "bg-gradient-dark-yellow",
     },
     {
       type: "Current Account",
       balance: "57,200.00",
       accountNumber: "****8932",
       icon: Wallet,
-      color: "bg-gradient-secondary",
+      color: "bg-gradient-dark-yellow",
     },
     {
       type: "Investment Account",
       balance: "125,000.00",
       accountNumber: "****2341",
       icon: TrendingUp,
-      color: "bg-gradient-secondary",
+      color: "bg-gradient-dark-yellow",
     },
   ];
 
@@ -130,17 +130,17 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                       <Card className={`absolute inset-0 ${account.color} border-0 p-5 shadow-xl backface-hidden`}>
                         <div className="flex flex-col h-full justify-between">
                           <div className="flex justify-between items-start">
-                            <div className="bg-primary-foreground/20 p-2.5 rounded-xl backdrop-blur-sm">
-                              <account.icon className="h-6 w-6 text-primary-foreground" />
+                            <div className="bg-black/10 p-2.5 rounded-xl backdrop-blur-sm">
+                              <account.icon className="h-6 w-6 text-black" />
                             </div>
-                            <CreditCard className="h-5 w-5 text-primary-foreground/60" />
+                            <CreditCard className="h-5 w-5 text-black/60" />
                           </div>
                           <div>
-                            <p className="text-primary-foreground/80 text-sm font-medium mb-2">{account.type}</p>
-                            <p className="text-primary-foreground text-3xl font-bold tracking-tight">
+                            <p className="text-black/80 text-sm font-medium mb-2">{account.type}</p>
+                            <p className="text-black text-3xl font-bold tracking-tight">
                               $****.**
                             </p>
-                            <p className="text-primary-foreground/60 text-xs mt-2 font-medium">
+                            <p className="text-black/60 text-xs mt-2 font-medium">
                               {account.accountNumber}
                             </p>
                           </div>
@@ -151,26 +151,26 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                       <Card className={`absolute inset-0 ${account.color} border-0 p-5 shadow-xl backface-hidden rotate-y-180`}>
                         <div className="flex flex-col h-full justify-between">
                           <div className="flex justify-between items-start">
-                            <h4 className="text-primary-foreground font-bold text-lg">Details</h4>
-                            <MoreHorizontal className="h-5 w-5 text-primary-foreground" />
+                            <h4 className="text-black font-bold text-lg">Details</h4>
+                            <MoreHorizontal className="h-5 w-5 text-black" />
                           </div>
                           <div className="space-y-3">
                             <div>
-                              <p className="text-primary-foreground/70 text-xs mb-1">Available Balance</p>
-                              <p className="text-primary-foreground text-2xl font-bold">${account.balance}</p>
+                              <p className="text-black/70 text-xs mb-1">Available Balance</p>
+                              <p className="text-black text-2xl font-bold">${account.balance}</p>
                             </div>
                             <div className="flex gap-4">
                               <div>
-                                <p className="text-primary-foreground/70 text-xs mb-1">Account No.</p>
-                                <p className="text-primary-foreground text-sm font-medium">{account.accountNumber}</p>
+                                <p className="text-black/70 text-xs mb-1">Account No.</p>
+                                <p className="text-black text-sm font-medium">{account.accountNumber}</p>
                               </div>
                               <div>
-                                <p className="text-primary-foreground/70 text-xs mb-1">Type</p>
-                                <p className="text-primary-foreground text-sm font-medium">{account.type.split(' ')[0]}</p>
+                                <p className="text-black/70 text-xs mb-1">Type</p>
+                                <p className="text-black text-sm font-medium">{account.type.split(' ')[0]}</p>
                               </div>
                             </div>
                             <div className="flex gap-2 mt-2">
-                              <div className="flex items-center gap-1.5 text-primary-foreground/80 text-xs">
+                              <div className="flex items-center gap-1.5 text-black/80 text-xs">
                                 <div className="bg-success/20 p-1 rounded">
                                   <ArrowDownLeft className="h-3 w-3 text-success" />
                                 </div>

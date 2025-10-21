@@ -111,6 +111,7 @@ export default {
         'gradient-card': 'var(--gradient-card)',
         'gradient-accent': 'var(--gradient-accent)',
         'gradient-secondary': 'var(--gradient-secondary)',
+        'gradient-dark-yellow': 'var(--gradient-dark-yellow)',
       },
       boxShadow: {
         'sm': 'var(--shadow-sm)',
