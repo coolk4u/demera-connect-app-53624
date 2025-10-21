@@ -20,6 +20,14 @@ import {
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useState } from "react";
 
 interface DashboardProps {
   onNavigate: (page: string) => void;
@@ -27,7 +35,19 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
-  const totalBalance = "152,450.00";
+  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+  
+  const toggleCardFlip = (index: number) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
   
   const transactions = [
     { id: 1, name: "GTT Payment", amount: "-5,200", date: "Today", type: "debit" },
@@ -95,75 +115,85 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
               </Button>
             </div>
 
-        {/* Total Balance Card */}
-        <Card className="bg-gradient-gold border-0 p-6 shadow-xl animate-scale-in backdrop-blur-sm">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <p className="text-accent-foreground/70 text-sm mb-1 font-medium">Total Balance</p>
-              <h3 className="text-accent-foreground text-4xl font-bold tracking-tight">
-                ${totalBalance}
-              </h3>
-            </div>
-            <div className="bg-accent-foreground/10 p-2.5 rounded-xl backdrop-blur-sm">
-              <CreditCard className="h-6 w-6 text-accent-foreground" />
-            </div>
-          </div>
-          <div className="flex gap-6 mt-6">
-            <div className="flex items-center gap-2 text-accent-foreground/80 text-sm">
-              <div className="bg-success/20 p-1.5 rounded-lg backdrop-blur-sm">
-                <ArrowDownLeft className="h-4 w-4 text-success" />
-              </div>
-              <span className="font-medium">Income</span>
-            </div>
-            <div className="flex items-center gap-2 text-accent-foreground/80 text-sm">
-              <div className="bg-destructive/20 p-1.5 rounded-lg backdrop-blur-sm">
-                <ArrowUpRight className="h-4 w-4 text-destructive" />
-              </div>
-              <span className="font-medium">Expenses</span>
-            </div>
-          </div>
-        </Card>
-      </div>
-
-      {/* Accounts Section */}
-      <div className="px-6 py-6 space-y-6">
-        <div>
-          <h3 className="text-foreground font-bold text-lg mb-4">My Accounts</h3>
-          <div className="space-y-3">
-            {accounts.map((account, index) => (
-              <Card
-                key={index}
-                onClick={() => onAccountClick(account)}
-                className={`${account.color} border-0 p-5 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer animate-slide-up backdrop-blur-sm`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex justify-between items-start">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-primary-foreground/20 p-2.5 rounded-xl backdrop-blur-sm">
-                      <account.icon className="h-6 w-6 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-primary-foreground/80 text-sm font-medium">{account.type}</p>
-                      <p className="text-primary-foreground text-2xl font-bold mt-1 tracking-tight">
-                        ${account.balance}
-                      </p>
-                      <p className="text-primary-foreground/60 text-xs mt-1.5 font-medium">
-                        {account.accountNumber}
-                      </p>
+        {/* Account Cards Carousel */}
+        <Carousel className="w-full max-w-full px-6">
+          <CarouselContent className="-ml-4">
+            {accounts.map((account, index) => {
+              const isFlipped = flippedCards.has(index);
+              return (
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <div 
+                    className="relative h-48 cursor-pointer perspective-1000"
+                    onClick={() => toggleCardFlip(index)}
+                  >
+                    <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                      {/* Front of card */}
+                      <Card className={`absolute inset-0 ${account.color} border-0 p-5 shadow-xl backface-hidden`}>
+                        <div className="flex flex-col h-full justify-between">
+                          <div className="flex justify-between items-start">
+                            <div className="bg-primary-foreground/20 p-2.5 rounded-xl backdrop-blur-sm">
+                              <account.icon className="h-6 w-6 text-primary-foreground" />
+                            </div>
+                            <CreditCard className="h-5 w-5 text-primary-foreground/60" />
+                          </div>
+                          <div>
+                            <p className="text-primary-foreground/80 text-sm font-medium mb-2">{account.type}</p>
+                            <p className="text-primary-foreground text-3xl font-bold tracking-tight">
+                              ${account.balance}
+                            </p>
+                            <p className="text-primary-foreground/60 text-xs mt-2 font-medium">
+                              {account.accountNumber}
+                            </p>
+                          </div>
+                        </div>
+                      </Card>
+                      
+                      {/* Back of card */}
+                      <Card className={`absolute inset-0 ${account.color} border-0 p-5 shadow-xl backface-hidden rotate-y-180`}>
+                        <div className="flex flex-col h-full justify-between">
+                          <div className="flex justify-between items-start">
+                            <h4 className="text-primary-foreground font-bold text-lg">Details</h4>
+                            <MoreHorizontal className="h-5 w-5 text-primary-foreground" />
+                          </div>
+                          <div className="space-y-3">
+                            <div>
+                              <p className="text-primary-foreground/70 text-xs mb-1">Available Balance</p>
+                              <p className="text-primary-foreground text-2xl font-bold">${account.balance}</p>
+                            </div>
+                            <div className="flex gap-4">
+                              <div>
+                                <p className="text-primary-foreground/70 text-xs mb-1">Account No.</p>
+                                <p className="text-primary-foreground text-sm font-medium">{account.accountNumber}</p>
+                              </div>
+                              <div>
+                                <p className="text-primary-foreground/70 text-xs mb-1">Type</p>
+                                <p className="text-primary-foreground text-sm font-medium">{account.type.split(' ')[0]}</p>
+                              </div>
+                            </div>
+                            <div className="flex gap-2 mt-2">
+                              <div className="flex items-center gap-1.5 text-primary-foreground/80 text-xs">
+                                <div className="bg-success/20 p-1 rounded">
+                                  <ArrowDownLeft className="h-3 w-3 text-success" />
+                                </div>
+                                <span>Active</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
                     </div>
                   </div>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl"
-                  >
-                    <MoreHorizontal className="h-5 w-5" />
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious className="left-0" />
+          <CarouselNext className="right-0" />
+        </Carousel>
+      </div>
+
+      {/* Quick Actions & Transactions */}
+      <div className="px-6 pb-6 space-y-6">
 
         {/* Quick Actions */}
         <div>
