@@ -11,8 +11,9 @@ import { TransactionsPage } from "@/components/TransactionsPage";
 import { ScheduleAppointmentPage } from "@/components/ScheduleAppointmentPage";
 import { ApplyAccountPage } from "@/components/ApplyAccountPage";
 import { UpdateProfilePage } from "@/components/UpdateProfilePage";
+import { ServicesPage } from "@/components/ServicesPage";
 
-type PageType = "home" | "transfer" | "bills" | "topup" | "profile" | "accountDetail" | "transactions" | "appointment" | "apply-account" | "update-profile";
+type PageType = "home" | "transfer" | "bills" | "topup" | "profile" | "accountDetail" | "transactions" | "appointment" | "apply-account" | "update-profile" | "services";
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -48,6 +49,8 @@ const Index = () => {
         return <ApplyAccountPage onBack={() => setActivePage("home")} />;
       case "update-profile":
         return <UpdateProfilePage onBack={() => setActivePage("home")} />;
+      case "services":
+        return <ServicesPage onBack={() => setActivePage("home")} />;
       case "accountDetail":
         return selectedAccount ? (
           <AccountDetailPage
