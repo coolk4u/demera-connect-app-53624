@@ -99,11 +99,13 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
           {/* Header */}
           <div className="bg-gradient-primary p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10">
             <div className="flex justify-between items-start mb-8">
-              <div className="flex items-center gap-3">
-                <SidebarTrigger className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl h-10 w-10">
-                  <Menu className="h-6 w-6" />
-                </SidebarTrigger>
-                <img src={logo} alt="Demerara Bank" className="h-12 w-12 object-contain drop-shadow-md" />
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3">
+                  <SidebarTrigger className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl h-10 w-10">
+                    <Menu className="h-6 w-6" />
+                  </SidebarTrigger>
+                  <img src={logo} alt="Demerara Bank" className="h-12 w-12 object-contain drop-shadow-md" />
+                </div>
                 <div>
                   <p className="text-primary-foreground/70 text-xs font-medium">Good morning</p>
                   <h2 className="text-primary-foreground text-xl font-bold tracking-tight">Michael Peters</h2>
