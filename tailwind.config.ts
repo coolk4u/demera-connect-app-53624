@@ -109,6 +109,8 @@ export default {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-gold': 'var(--gradient-gold)',
         'gradient-card': 'var(--gradient-card)',
+        'gradient-accent': 'var(--gradient-accent)',
+        'gradient-secondary': 'var(--gradient-secondary)',
       },
       boxShadow: {
         'sm': 'var(--shadow-sm)',

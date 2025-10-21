@@ -8,10 +8,13 @@ import {
   Send,
   Receipt,
   Smartphone,
-  Plus,
   PiggyBank,
   Wallet,
-  TrendingUp
+  TrendingUp,
+  Banknote,
+  Landmark,
+  DollarSign,
+  Settings
 } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 
@@ -55,53 +58,58 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
   ];
 
   const quickActions = [
-    { icon: Send, label: "Transfer", color: "bg-primary", action: "transfer" },
-    { icon: Receipt, label: "Pay Bills", color: "bg-accent", action: "bills" },
-    { icon: Smartphone, label: "Top Up", color: "bg-primary", action: "topup" },
-    { icon: Plus, label: "More", color: "bg-muted", action: "more" },
+    { icon: Send, label: "Transfer", color: "bg-gradient-primary", action: "transfer" },
+    { icon: Receipt, label: "Pay Bills", color: "bg-gradient-secondary", action: "bills" },
+    { icon: Smartphone, label: "Top Up", color: "bg-gradient-accent", action: "topup" },
+    { icon: Banknote, label: "Loans", color: "bg-gradient-gold", action: "loans" },
+    { icon: CreditCard, label: "Cards", color: "bg-gradient-primary", action: "cards" },
+    { icon: DollarSign, label: "Forex", color: "bg-gradient-accent", action: "forex" },
+    { icon: Landmark, label: "Services", color: "bg-gradient-secondary", action: "services" },
+    { icon: Settings, label: "More", color: "bg-muted", action: "more" },
   ];
 
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-gradient-primary p-6 rounded-b-3xl shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <img src={logo} alt="Demerara Bank" className="h-10 object-contain" />
-          <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+      <div className="bg-gradient-primary p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10">
+        <div className="flex justify-between items-start mb-8">
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Demerara Bank" className="h-12 w-12 object-contain drop-shadow-md" />
+            <div>
+              <p className="text-primary-foreground/70 text-xs font-medium">Good morning</p>
+              <h2 className="text-primary-foreground text-xl font-bold tracking-tight">Michael Peters</h2>
+            </div>
+          </div>
+          <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl">
             <MoreHorizontal className="h-6 w-6" />
           </Button>
         </div>
 
-        <div className="mb-6">
-          <p className="text-primary-foreground/80 text-sm">Good morning</p>
-          <h2 className="text-primary-foreground text-2xl font-bold">Michael Peters</h2>
-        </div>
-
         {/* Total Balance Card */}
-        <Card className="bg-gradient-gold border-0 p-6 shadow-lg animate-scale-in">
+        <Card className="bg-gradient-gold border-0 p-6 shadow-xl animate-scale-in backdrop-blur-sm">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <p className="text-accent-foreground/70 text-sm mb-1">Total Balance</p>
-              <h3 className="text-accent-foreground text-3xl font-bold">
+              <p className="text-accent-foreground/70 text-sm mb-1 font-medium">Total Balance</p>
+              <h3 className="text-accent-foreground text-4xl font-bold tracking-tight">
                 ${totalBalance}
               </h3>
             </div>
-            <div className="bg-accent-foreground/10 p-2 rounded-lg">
-              <CreditCard className="h-5 w-5 text-accent-foreground" />
+            <div className="bg-accent-foreground/10 p-2.5 rounded-xl backdrop-blur-sm">
+              <CreditCard className="h-6 w-6 text-accent-foreground" />
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-6 mt-6">
             <div className="flex items-center gap-2 text-accent-foreground/80 text-sm">
-              <div className="bg-success/20 p-1 rounded">
+              <div className="bg-success/20 p-1.5 rounded-lg backdrop-blur-sm">
                 <ArrowDownLeft className="h-4 w-4 text-success" />
               </div>
-              <span>Income</span>
+              <span className="font-medium">Income</span>
             </div>
             <div className="flex items-center gap-2 text-accent-foreground/80 text-sm">
-              <div className="bg-destructive/20 p-1 rounded">
+              <div className="bg-destructive/20 p-1.5 rounded-lg backdrop-blur-sm">
                 <ArrowUpRight className="h-4 w-4 text-destructive" />
               </div>
-              <span>Expenses</span>
+              <span className="font-medium">Expenses</span>
             </div>
           </div>
         </Card>
@@ -110,26 +118,26 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       {/* Accounts Section */}
       <div className="px-6 py-6 space-y-6">
         <div>
-          <h3 className="text-foreground font-semibold mb-4">My Accounts</h3>
+          <h3 className="text-foreground font-bold text-lg mb-4">My Accounts</h3>
           <div className="space-y-3">
             {accounts.map((account, index) => (
               <Card
                 key={index}
                 onClick={() => onAccountClick(account)}
-                className={`${account.color} border-0 p-5 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer animate-slide-up`}
+                className={`${account.color} border-0 p-5 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer animate-slide-up backdrop-blur-sm`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex justify-between items-start">
                   <div className="flex items-start gap-3">
-                    <div className="bg-primary-foreground/20 p-2 rounded-lg">
-                      <account.icon className="h-5 w-5 text-primary-foreground" />
+                    <div className="bg-primary-foreground/20 p-2.5 rounded-xl backdrop-blur-sm">
+                      <account.icon className="h-6 w-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <p className="text-primary-foreground/80 text-sm">{account.type}</p>
-                      <p className="text-primary-foreground text-2xl font-bold mt-1">
+                      <p className="text-primary-foreground/80 text-sm font-medium">{account.type}</p>
+                      <p className="text-primary-foreground text-2xl font-bold mt-1 tracking-tight">
                         ${account.balance}
                       </p>
-                      <p className="text-primary-foreground/60 text-xs mt-1">
+                      <p className="text-primary-foreground/60 text-xs mt-1.5 font-medium">
                         {account.accountNumber}
                       </p>
                     </div>
@@ -137,7 +145,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                    className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl"
                   >
                     <MoreHorizontal className="h-5 w-5" />
                   </Button>
@@ -149,18 +157,18 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
 
         {/* Quick Actions */}
         <div>
-          <h3 className="text-foreground font-semibold mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-4 gap-4">
+          <h3 className="text-foreground font-bold text-lg mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-4 gap-3">
             {quickActions.map((action, index) => (
               <button
                 key={index}
                 onClick={() => action.action !== "more" && onNavigate(action.action)}
-                className="flex flex-col items-center gap-2 transition-transform duration-300 hover:scale-105 active:scale-95"
+                className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group"
               >
-                <div className={`${action.color} w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm`}>
-                  <action.icon className="h-6 w-6 text-primary-foreground" />
+                <div className={`${action.color} w-16 h-16 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow backdrop-blur-sm`}>
+                  <action.icon className="h-6 w-6 text-primary-foreground drop-shadow-sm" />
                 </div>
-                <span className="text-xs text-foreground/70">{action.label}</span>
+                <span className="text-xs text-foreground/80 font-medium">{action.label}</span>
               </button>
             ))}
           </div>
@@ -169,17 +177,17 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
         {/* Transactions */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-foreground font-semibold">Recent Transactions</h3>
-            <Button variant="ghost" size="sm" className="text-primary">
+            <h3 className="text-foreground font-bold text-lg">Recent Transactions</h3>
+            <Button variant="ghost" size="sm" className="text-primary font-semibold hover:bg-primary/10">
               See All
             </Button>
           </div>
           <div className="space-y-3">
             {transactions.map((transaction) => (
-              <Card key={transaction.id} className="p-4 border-border hover:shadow-md transition-shadow duration-300">
+              <Card key={transaction.id} className="p-4 border-border hover:shadow-lg transition-all duration-300 backdrop-blur-sm">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
                       transaction.type === 'credit' ? 'bg-success/10' : 'bg-muted'
                     }`}>
                       {transaction.type === 'credit' ? (
@@ -189,11 +197,11 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                       )}
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">{transaction.name}</p>
-                      <p className="text-xs text-muted-foreground">{transaction.date}</p>
+                      <p className="font-semibold text-foreground">{transaction.name}</p>
+                      <p className="text-xs text-muted-foreground font-medium">{transaction.date}</p>
                     </div>
                   </div>
-                  <p className={`font-semibold ${
+                  <p className={`font-bold text-base ${
                     transaction.type === 'credit' ? 'text-success' : 'text-foreground'
                   }`}>
                     {transaction.amount}
