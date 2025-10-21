@@ -18,7 +18,9 @@ import {
   Menu,
   Calendar,
   FileText,
-  UserCog
+  UserCog,
+  LogOut,
+  User
 } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -30,7 +32,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface DashboardProps {
   onNavigate: (page: string) => void;
@@ -111,9 +120,23 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                   <h2 className="text-primary-foreground text-xl font-bold tracking-tight">Michael Peters</h2>
                 </div>
               </div>
-              <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl">
-                <MoreHorizontal className="h-6 w-6" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl">
+                    <MoreHorizontal className="h-6 w-6" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={() => onNavigate("profile")}>
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => toast.info("Logout functionality")}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
         {/* Account Cards Carousel */}
