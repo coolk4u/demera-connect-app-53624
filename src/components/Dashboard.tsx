@@ -58,21 +58,21 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       balance: "95,250.00",
       accountNumber: "****4521",
       icon: PiggyBank,
-      color: "bg-gradient-dark-yellow",
+      color: "bg-gradient-gold",
     },
     {
       type: "Current Account",
       balance: "57,200.00",
       accountNumber: "****8932",
       icon: Wallet,
-      color: "bg-gradient-dark-yellow",
+      color: "bg-gradient-gold",
     },
     {
       type: "Investment Account",
       balance: "125,000.00",
       accountNumber: "****2341",
       icon: TrendingUp,
-      color: "bg-gradient-dark-yellow",
+      color: "bg-gradient-gold",
     },
   ];
 
