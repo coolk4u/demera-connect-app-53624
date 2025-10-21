@@ -20,7 +20,8 @@ import {
   FileText,
   UserCog,
   LogOut,
-  User
+  User,
+  Bell
 } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -38,6 +39,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -120,23 +126,64 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                   <h2 className="text-primary-foreground text-xl font-bold tracking-tight">Michael Peters</h2>
                 </div>
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl">
-                    <MoreHorizontal className="h-6 w-6" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem onClick={() => onNavigate("profile")}>
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => toast.info("Logout functionality")}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="flex items-center gap-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl relative">
+                      <Bell className="h-6 w-6" />
+                      <span className="absolute top-1 right-1 h-2 w-2 bg-destructive rounded-full"></span>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent align="end" className="w-80">
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-sm">Notifications</h3>
+                      <div className="space-y-3">
+                        <div className="p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors cursor-pointer">
+                          <div className="flex items-start gap-3">
+                            <div className="bg-primary/10 p-2 rounded-lg">
+                              <ArrowDownLeft className="h-4 w-4 text-primary" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium">Payment Received</p>
+                              <p className="text-xs text-muted-foreground mt-1">$2,500 credited to your Savings Account</p>
+                              <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors cursor-pointer">
+                          <div className="flex items-start gap-3">
+                            <div className="bg-accent/10 p-2 rounded-lg">
+                              <CreditCard className="h-4 w-4 text-accent" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium">Card Payment</p>
+                              <p className="text-xs text-muted-foreground mt-1">$150 spent at Amazon Store</p>
+                              <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl">
+                      <MoreHorizontal className="h-6 w-6" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem onClick={() => onNavigate("profile")}>
+                      <User className="mr-2 h-4 w-4" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => toast.info("Logout functionality")}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
 
         {/* Account Cards Carousel */}
