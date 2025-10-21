@@ -114,7 +114,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
             {accounts.map((account, index) => {
               const isFlipped = flippedCards.has(index);
               return (
-                <CarouselItem key={index} className="pl-2 md:basis-3/4 lg:basis-1/2">
+                <CarouselItem key={index} className="pl-2 basis-[85%] md:basis-[75%] lg:basis-[60%]">
                   <div 
                     className="relative h-48 cursor-pointer perspective-1000"
                     onClick={() => toggleCardFlip(index)}
@@ -132,7 +132,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                           <div>
                             <p className="text-primary-foreground/80 text-sm font-medium mb-2">{account.type}</p>
                             <p className="text-primary-foreground text-3xl font-bold tracking-tight">
-                              ${account.balance}
+                              $****.**
                             </p>
                             <p className="text-primary-foreground/60 text-xs mt-2 font-medium">
                               {account.accountNumber}
