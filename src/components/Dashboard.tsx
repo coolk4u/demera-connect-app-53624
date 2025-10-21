@@ -48,13 +48,6 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       return newSet;
     });
   };
-  
-  const transactions = [
-    { id: 1, name: "GTT Payment", amount: "-5,200", date: "Today", type: "debit" },
-    { id: 2, name: "Salary Deposit", amount: "+85,000", date: "Yesterday", type: "credit" },
-    { id: 3, name: "GPL Bill", amount: "-12,500", date: "2 days ago", type: "debit" },
-    { id: 4, name: "Transfer from Jane", amount: "+20,000", date: "3 days ago", type: "credit" },
-  ];
 
   const accounts = [
     {
@@ -210,44 +203,6 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                 </div>
                 <span className="text-xs text-foreground/80 font-medium">{action.label}</span>
               </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Transactions */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-foreground font-bold text-lg">Recent Transactions</h3>
-            <Button variant="ghost" size="sm" className="text-primary font-semibold hover:bg-primary/10">
-              See All
-            </Button>
-          </div>
-          <div className="space-y-3">
-            {transactions.map((transaction) => (
-              <Card key={transaction.id} className="p-4 border-border hover:shadow-lg transition-all duration-300 backdrop-blur-sm">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                      transaction.type === 'credit' ? 'bg-success/10' : 'bg-muted'
-                    }`}>
-                      {transaction.type === 'credit' ? (
-                        <ArrowDownLeft className="h-5 w-5 text-success" />
-                      ) : (
-                        <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">{transaction.name}</p>
-                      <p className="text-xs text-muted-foreground font-medium">{transaction.date}</p>
-                    </div>
-                  </div>
-                  <p className={`font-bold text-base ${
-                    transaction.type === 'credit' ? 'text-success' : 'text-foreground'
-                  }`}>
-                    {transaction.amount}
-                  </p>
-                </div>
-              </Card>
             ))}
           </div>
         </div>

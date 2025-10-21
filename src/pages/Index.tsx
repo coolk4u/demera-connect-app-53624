@@ -7,8 +7,9 @@ import { PayBillsPage } from "@/components/PayBillsPage";
 import { TopUpPage } from "@/components/TopUpPage";
 import { AccountDetailPage } from "@/components/AccountDetailPage";
 import { ProfilePage } from "@/components/ProfilePage";
+import { TransactionsPage } from "@/components/TransactionsPage";
 
-type PageType = "home" | "transfer" | "bills" | "topup" | "profile" | "accountDetail";
+type PageType = "home" | "transfer" | "bills" | "topup" | "profile" | "accountDetail" | "transactions";
 
 const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -36,6 +37,8 @@ const Index = () => {
         return <PayBillsPage onBack={() => setActivePage("home")} />;
       case "topup":
         return <TopUpPage onBack={() => setActivePage("home")} />;
+      case "transactions":
+        return <TransactionsPage onBack={() => setActivePage("home")} />;
       case "accountDetail":
         return selectedAccount ? (
           <AccountDetailPage
