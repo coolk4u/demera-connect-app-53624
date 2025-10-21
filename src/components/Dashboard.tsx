@@ -114,7 +114,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
             {accounts.map((account, index) => {
               const isFlipped = flippedCards.has(index);
               return (
-                <CarouselItem key={index} className="pl-2 basis-[90%]">
+                <CarouselItem key={index} className="pl-2 basis-[95%]">
                   <div 
                     className="relative h-40 cursor-pointer perspective-1000"
                     onClick={() => toggleCardFlip(index)}
