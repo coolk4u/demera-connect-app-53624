@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Send, User, Building2, Globe, ArrowRightLeft } from "lucide-react";
+import { ArrowLeft, Send, User, Building2, Globe, ArrowRightLeft, CheckCircle, Edit } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -42,6 +42,7 @@ interface TransferPageProps {
 
 export const TransferPage = ({ onBack }: TransferPageProps) => {
   const [transferType, setTransferType] = useState<TransferType>("own");
+  const [showReview, setShowReview] = useState(false);
   
   // Own transfer state
   const [fromAccount, setFromAccount] = useState("");
@@ -68,7 +69,7 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
     { id: "wire" as TransferType, label: "Wire Transfer", icon: Globe, description: "International" },
   ];
 
-  const handleOwnTransfer = () => {
+  const handleOwnTransferReview = () => {
     try {
       const validatedData = ownTransferSchema.parse({
         fromAccount,
@@ -77,7 +78,6 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
       });
 
       const fromAcc = accounts.find(acc => acc.id === validatedData.fromAccount);
-      const toAcc = accounts.find(acc => acc.id === validatedData.toAccount);
       const transferAmount = parseFloat(validatedData.amount);
 
       // Check sufficient balance (in real app, this would be done on backend)
@@ -87,17 +87,27 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
         return;
       }
 
-      toast.success(`Successfully transferred $${transferAmount.toLocaleString()} from ${fromAcc!.name} to ${toAcc!.name}`);
-      
-      // Reset form
-      setAmount("");
-      setFromAccount("");
-      setToAccount("");
+      // Show review screen
+      setShowReview(true);
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error(error.errors[0].message);
       }
     }
+  };
+
+  const confirmOwnTransfer = () => {
+    const fromAcc = accounts.find(acc => acc.id === fromAccount);
+    const toAcc = accounts.find(acc => acc.id === toAccount);
+    const transferAmount = parseFloat(amount);
+
+    toast.success(`Successfully transferred $${transferAmount.toLocaleString()} from ${fromAcc!.name} to ${toAcc!.name}`);
+    
+    // Reset form
+    setAmount("");
+    setFromAccount("");
+    setToAccount("");
+    setShowReview(false);
   };
 
   const handleExternalTransfer = () => {
@@ -159,8 +169,73 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
       </div>
 
       <div className="px-6 py-6 space-y-6">
+        {/* Own Transfer Review Screen */}
+        {transferType === "own" && showReview && (
+          <Card className="p-6 space-y-6">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                <CheckCircle className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-center text-foreground">Review Transfer</h2>
+            <p className="text-center text-muted-foreground">Please review the details before confirming</p>
+
+            <div className="space-y-4 bg-muted/50 rounded-xl p-4">
+              <div className="flex justify-between items-center py-2 border-b border-border">
+                <span className="text-muted-foreground">From Account</span>
+                <div className="text-right">
+                  <p className="font-semibold text-foreground">
+                    {accounts.find(acc => acc.id === fromAccount)?.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {accounts.find(acc => acc.id === fromAccount)?.number}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center py-2 border-b border-border">
+                <span className="text-muted-foreground">To Account</span>
+                <div className="text-right">
+                  <p className="font-semibold text-foreground">
+                    {accounts.find(acc => acc.id === toAccount)?.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {accounts.find(acc => acc.id === toAccount)?.number}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center py-2">
+                <span className="text-muted-foreground">Amount</span>
+                <p className="text-2xl font-bold text-primary">
+                  ${parseFloat(amount).toLocaleString()} GYD
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                onClick={() => setShowReview(false)}
+                variant="outline"
+                className="flex-1 h-12 rounded-full"
+              >
+                <Edit className="mr-2 h-5 w-5" />
+                Edit
+              </Button>
+              <Button
+                onClick={confirmOwnTransfer}
+                className="flex-1 h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
+              >
+                <CheckCircle className="mr-2 h-5 w-5" />
+                Confirm Transfer
+              </Button>
+            </div>
+          </Card>
+        )}
+
         {/* Own Transfer Form */}
-        {transferType === "own" && (
+        {transferType === "own" && !showReview && (
           <Card className="p-6 space-y-4">
             <div className="space-y-2">
               <Label htmlFor="fromAccount">From Account</Label>
@@ -218,7 +293,7 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
             <div className="pt-4">
               <Button
-                onClick={handleOwnTransfer}
+                onClick={handleOwnTransferReview}
                 className="w-full h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
               >
                 <Send className="mr-2 h-5 w-5" />
