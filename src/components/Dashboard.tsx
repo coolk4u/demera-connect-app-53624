@@ -44,10 +44,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import card from './Assets/Card.svg';
-import background from './Assets/Background.svg';
+import background from './Assets/Background.png';
+import carousel1 from './Assets/carousel1.png';
+import carousel2 from './Assets/carousel2.png';
+import carousel3 from './Assets/carousel3.png';
 
 interface DashboardProps {
   onNavigate: (page: string) => void;
@@ -56,6 +59,7 @@ interface DashboardProps {
 
 export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+  const [api, setApi] = useState<any>();
   
   const toggleCardFlip = (index: number) => {
     setFlippedCards(prev => {
@@ -68,6 +72,23 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       return newSet;
     });
   };
+
+  const carouselImages = [carousel1, carousel2, carousel3];
+
+  // Auto slide every 2 seconds
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      api.scrollNext()
+    }, 2000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [api])
 
   const accounts = [
     {
@@ -113,17 +134,18 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
         <AppSidebar onNavigate={onNavigate} />
         
         <div className="flex-1 min-h-screen bg-background pb-20">
-          {/* Header */}
-          <div 
-            className="p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10 relative overflow-hidden"
-            style={{
-              backgroundImage: `url(${background})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          >
-            <div className="relative z-10">
+          {/* Header with Background */}
+          <div className="relative overflow-hidden rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10">
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${background})`,
+              }}
+            />
+            
+            {/* Content Overlay */}
+            <div className="relative z-10 p-6 pb-8">
               <div className="flex justify-between items-start mb-8">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3">
@@ -205,12 +227,20 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                     return (
                       <CarouselItem key={index} className="pl-2 basis-[98%]">
                         <div 
-                          className="relative h-40 cursor-pointer perspective-1000"
+                          className="relative h-44 cursor-pointer"
                           onClick={() => toggleCardFlip(index)}
                         >
-                          <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                          <div className={`relative w-full h-full transition-all duration-500 ease-in-out ${isFlipped ? 'rotate-y-180' : ''}`}
+                               style={{
+                                 transformStyle: 'preserve-3d',
+                               }}>
                             {/* Front of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden overflow-hidden">
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl overflow-hidden"
+                                  style={{
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden',
+                                    transform: 'rotateY(0deg)'
+                                  }}>
                               <img 
                                 src={card} 
                                 alt="Card" 
@@ -227,7 +257,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                                   <p className="text-white/90 text-sm font-medium mb-2">{account.type}</p>
                                   <p className="text-white text-2xl font-bold tracking-tight">
                                     <span className="text-white text-xl font-bold mr-2">$</span>
-                                    <sub className="">* * * *</sub> . <sub>* *</sub> 
+                                    * * * * . * *
                                   </p>
                                   <p className="text-white/70 text-base mt-2 font-medium">
                                     {account.accountNumber}
@@ -237,7 +267,12 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                             </Card>
                             
                             {/* Back of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rotate-y-180 overflow-hidden">
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl overflow-hidden"
+                                  style={{
+                                    backfaceVisibility: 'hidden',
+                                    WebkitBackfaceVisibility: 'hidden',
+                                    transform: 'rotateY(180deg)'
+                                  }}>
                               <img 
                                 src={card} 
                                 alt="Card" 
@@ -251,7 +286,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                                 <div className="space-y-3">
                                   <div>
                                     <p className="text-white/80 text-xs mb-1">Available Balance</p>
-                                    <p className="text-white text-2xl font-bold">$ {account.balance}</p>
+                                    <p className="text-white text-2xl font-bold">${account.balance}</p>
                                   </div>
                                   <div className="flex gap-4">
                                     <div>
@@ -263,14 +298,14 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                                       <p className="text-white text-sm font-medium">{account.type.split(' ')[0]}</p>
                                     </div>
                                   </div>
-                                  <div className="flex gap-2 mt-2">
+                                  {/* <div className="flex gap-2 mt-2">
                                     <div className="flex items-center gap-1.5 text-white/90 text-xs">
                                       <div className="bg-green-500/30 p-1 rounded">
                                         <ArrowDownLeft className="h-3 w-3 text-green-300" />
                                       </div>
                                       <span>Active</span>
                                     </div>
-                                  </div>
+                                  </div> */}
                                 </div>
                               </div>
                             </Card>
@@ -305,6 +340,36 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                   </button>
                 ))}
               </div>
+            </div>
+
+
+              <h3 className="text-foreground font-bold text-lg mb-4">Offers</h3>
+
+            {/* Image Carousel */}
+            <div className="mt-8">
+              <Carousel 
+                className="w-full max-w-full"
+                setApi={setApi}
+                opts={{
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  {carouselImages.map((image, index) => (
+                    <CarouselItem key={index} className="basis-full">
+                      <div className="relative rounded-2xl overflow-hidden shadow-lg">
+                        <img 
+                          src={image} 
+                          alt={`Promotional banner ${index + 1}`}
+                          className="w-full h-48 object-cover md:h-56 lg:h-64"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-2 md:left-4" />
+                <CarouselNext className="right-2 md:right-4" />
+              </Carousel>
             </div>
           </div>
         </div>
