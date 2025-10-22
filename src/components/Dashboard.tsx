@@ -1,62 +1,25 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  ArrowUpRight, 
-  ArrowDownLeft, 
-  CreditCard, 
-  MoreHorizontal,
-  Send,
-  Receipt,
-  Smartphone,
-  PiggyBank,
-  Wallet,
-  TrendingUp,
-  Banknote,
-  Landmark,
-  DollarSign,
-  Settings,
-  Menu,
-  Calendar,
-  FileText,
-  UserCog,
-  LogOut,
-  User,
-  Bell
-} from "lucide-react";
+import { ArrowUpRight, ArrowDownLeft, CreditCard, MoreHorizontal, Send, Receipt, Smartphone, PiggyBank, Wallet, TrendingUp, Banknote, Landmark, DollarSign, Settings, Menu, Calendar, FileText, UserCog, LogOut, User, Bell } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useState } from "react";
 import { toast } from "sonner";
 import card from './Assets/Card.svg';
 import background from './Assets/Background.svg';
-
 interface DashboardProps {
   onNavigate: (page: string) => void;
   onAccountClick: (account: any) => void;
 }
-
-export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
+export const Dashboard = ({
+  onNavigate,
+  onAccountClick
+}: DashboardProps) => {
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
-  
   const toggleCardFlip = (index: number) => {
     setFlippedCards(prev => {
       const newSet = new Set(prev);
@@ -68,61 +31,93 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
       return newSet;
     });
   };
-
-  const accounts = [
-    {
-      type: "Savings Account",
-      balance: "95,250.00",
-      accountNumber: "**** **** **** 4521",
-      icon: PiggyBank,
-      color: "bg-gradient-gold",
-    },
-    {
-      type: "Current Account",
-      balance: "57,200.00",
-      accountNumber: "**** **** **** 8932",
-      icon: Wallet,
-      color: "bg-gradient-gold",
-    },
-    {
-      type: "Investment Account",
-      balance: "125,000.00",
-      accountNumber: "**** **** **** 2341",
-      icon: TrendingUp,
-      color: "bg-gradient-gold",
-    },
-  ];
-
-  const quickActions = [
-    { icon: Send, label: "Transfer", color: "bg-gradient-primary", action: "transfer" },
-    { icon: Receipt, label: "Pay Bills", color: "bg-gradient-secondary", action: "bills" },
-    { icon: Smartphone, label: "Top Up", color: "bg-gradient-accent", action: "topup" },
-    { icon: Banknote, label: "Loans", color: "bg-gradient-gold", action: "loans" },
-    { icon: CreditCard, label: "Cards", color: "bg-gradient-primary", action: "cards" },
-    { icon: DollarSign, label: "Forex", color: "bg-gradient-accent", action: "forex" },
-    { icon: Landmark, label: "Services", color: "bg-gradient-secondary", action: "services" },
-    { icon: Calendar, label: "Appointment", color: "bg-gradient-primary", action: "appointment" },
-    { icon: FileText, label: "New Account", color: "bg-gradient-accent", action: "apply-account" },
-    { icon: UserCog, label: "Update Profile", color: "bg-gradient-secondary", action: "update-profile" },
-    { icon: Settings, label: "More", color: "bg-muted", action: "more" },
-  ];
-
-  return (
-    <SidebarProvider>
+  const accounts = [{
+    type: "Savings Account",
+    balance: "95,250.00",
+    accountNumber: "**** **** **** 4521",
+    icon: PiggyBank,
+    color: "bg-gradient-gold"
+  }, {
+    type: "Current Account",
+    balance: "57,200.00",
+    accountNumber: "**** **** **** 8932",
+    icon: Wallet,
+    color: "bg-gradient-gold"
+  }, {
+    type: "Investment Account",
+    balance: "125,000.00",
+    accountNumber: "**** **** **** 2341",
+    icon: TrendingUp,
+    color: "bg-gradient-gold"
+  }];
+  const quickActions = [{
+    icon: Send,
+    label: "Transfer",
+    color: "bg-gradient-primary",
+    action: "transfer"
+  }, {
+    icon: Receipt,
+    label: "Pay Bills",
+    color: "bg-gradient-secondary",
+    action: "bills"
+  }, {
+    icon: Smartphone,
+    label: "Top Up",
+    color: "bg-gradient-accent",
+    action: "topup"
+  }, {
+    icon: Banknote,
+    label: "Loans",
+    color: "bg-gradient-gold",
+    action: "loans"
+  }, {
+    icon: CreditCard,
+    label: "Cards",
+    color: "bg-gradient-primary",
+    action: "cards"
+  }, {
+    icon: DollarSign,
+    label: "Forex",
+    color: "bg-gradient-accent",
+    action: "forex"
+  }, {
+    icon: Landmark,
+    label: "Services",
+    color: "bg-gradient-secondary",
+    action: "services"
+  }, {
+    icon: Calendar,
+    label: "Appointment",
+    color: "bg-gradient-primary",
+    action: "appointment"
+  }, {
+    icon: FileText,
+    label: "New Account",
+    color: "bg-gradient-accent",
+    action: "apply-account"
+  }, {
+    icon: UserCog,
+    label: "Update Profile",
+    color: "bg-gradient-secondary",
+    action: "update-profile"
+  }, {
+    icon: Settings,
+    label: "More",
+    color: "bg-muted",
+    action: "more"
+  }];
+  return <SidebarProvider>
       <div className="flex min-h-screen w-full">
         <AppSidebar onNavigate={onNavigate} />
         
         <div className="flex-1 min-h-screen bg-background pb-20">
           {/* Header */}
-          <div 
-            className="p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10 relative"
-            style={{
-              backgroundImage: `url(${background})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          >
+          <div style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }} className="p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10 relative bg-green-900">
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-8">
                 <div className="flex flex-col gap-3">
@@ -201,21 +196,15 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
               <Carousel className="w-full max-w-full">
                 <CarouselContent className="-ml-3">
                   {accounts.map((account, index) => {
-                    const isFlipped = flippedCards.has(index);
-                    return (
-                      <CarouselItem key={index} className="pl-3 basis-full md:basis-[95%]">
-                        <div 
-                          className="relative h-44 cursor-pointer perspective-1000"
-                          onClick={() => toggleCardFlip(index)}
-                        >
+                  const isFlipped = flippedCards.has(index);
+                  return <CarouselItem key={index} className="pl-3 basis-full md:basis-[95%]">
+                        <div className="relative h-44 cursor-pointer perspective-1000" onClick={() => toggleCardFlip(index)}>
                           <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                             {/* Front of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rounded-2xl" style={{ overflow: 'visible' }}>
-                              <img 
-                                src={card} 
-                                alt="Card" 
-                                className="absolute inset-0 w-full h-full object-cover"
-                              />
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rounded-2xl" style={{
+                          overflow: 'visible'
+                        }}>
+                              <img src={card} alt="Card" className="absolute inset-0 w-full h-full object-cover" />
                               <div className="relative z-10 flex flex-col h-full justify-between text-white">
                                 <div className="flex justify-between items-start">
                                   <div className="bg-white/20 p-2.5 rounded-xl backdrop-blur-sm">
@@ -237,12 +226,10 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                             </Card>
                             
                             {/* Back of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rotate-y-180 rounded-2xl" style={{ overflow: 'visible' }}>
-                              <img 
-                                src={card} 
-                                alt="Card" 
-                                className="absolute inset-0 w-full h-full object-cover"
-                              />
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rotate-y-180 rounded-2xl" style={{
+                          overflow: 'visible'
+                        }}>
+                              <img src={card} alt="Card" className="absolute inset-0 w-full h-full object-cover" />
                               <div className="relative z-10 flex flex-col h-full justify-between text-white">
                                 <div className="flex justify-between items-start">
                                   <h4 className="text-white font-bold text-lg">Details</h4>
@@ -276,9 +263,8 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                             </Card>
                           </div>
                         </div>
-                      </CarouselItem>
-                    );
-                  })}
+                      </CarouselItem>;
+                })}
                 </CarouselContent>
                 {/* Removed CarouselPrevious and CarouselNext components */}
               </Carousel>
@@ -292,23 +278,16 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
             <div>
               <h3 className="text-foreground font-bold text-lg mb-4">Quick Actions</h3>
               <div className="grid grid-cols-4 gap-3">
-                {quickActions.map((action, index) => (
-                  <button
-                    key={index}
-                    onClick={() => action.action !== "more" && onNavigate(action.action)}
-                    className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group"
-                  >
+                {quickActions.map((action, index) => <button key={index} onClick={() => action.action !== "more" && onNavigate(action.action)} className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group">
                     <div className={`${action.color} w-16 h-16 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow backdrop-blur-sm`}>
                       <action.icon className="h-6 w-6 text-primary-foreground drop-shadow-sm" />
                     </div>
                     <span className="text-xs text-foreground/80 font-medium text-center leading-tight">{action.label}</span>
-                  </button>
-                ))}
+                  </button>)}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </SidebarProvider>
-  );
+    </SidebarProvider>;
 };
