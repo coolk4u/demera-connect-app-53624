@@ -1,28 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  ArrowUpRight, 
-  ArrowDownLeft, 
-  CreditCard, 
-  MoreHorizontal,
-  Send,
-  Receipt,
-  Smartphone,
-  PiggyBank,
-  Wallet,
-  TrendingUp,
-  Banknote,
-  Landmark,
-  DollarSign,
-  Settings,
-  Menu,
-  Calendar,
-  FileText,
-  UserCog,
-  LogOut,
-  User,
-  Bell
-} from "lucide-react";
+import { ArrowUpRight, ArrowDownLeft, CreditCard, MoreHorizontal, Send, Receipt, Smartphone, PiggyBank, Wallet, TrendingUp, Banknote, Landmark, DollarSign, Settings, Menu, Calendar, FileText, UserCog, LogOut, User, Bell } from "lucide-react";
 import logo from "@/assets/demerara-logo.png";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -56,8 +34,10 @@ interface DashboardProps {
   onNavigate: (page: string) => void;
   onAccountClick: (account: any) => void;
 }
-
-export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
+export const Dashboard = ({
+  onNavigate,
+  onAccountClick
+}: DashboardProps) => {
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
   const [api, setApi] = useState<any>();
   
@@ -220,8 +200,8 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
               </div>
 
               {/* Account Cards Carousel */}
-              <Carousel className="w-full max-w-full px-4">
-                <CarouselContent className="-ml-2">
+              <Carousel className="w-full max-w-full">
+                <CarouselContent className="-ml-3">
                   {accounts.map((account, index) => {
                     const isFlipped = flippedCards.has(index);
                     return (
@@ -311,9 +291,8 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                             </Card>
                           </div>
                         </div>
-                      </CarouselItem>
-                    );
-                  })}
+                      </CarouselItem>;
+                })}
                 </CarouselContent>
                 {/* Removed CarouselPrevious and CarouselNext components */}
               </Carousel>
@@ -327,18 +306,12 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
             <div>
               <h3 className="text-foreground font-bold text-lg mb-4">Quick Actions</h3>
               <div className="grid grid-cols-4 gap-3">
-                {quickActions.map((action, index) => (
-                  <button
-                    key={index}
-                    onClick={() => action.action !== "more" && onNavigate(action.action)}
-                    className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group"
-                  >
+                {quickActions.map((action, index) => <button key={index} onClick={() => action.action !== "more" && onNavigate(action.action)} className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group">
                     <div className={`${action.color} w-16 h-16 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow backdrop-blur-sm`}>
                       <action.icon className="h-6 w-6 text-primary-foreground drop-shadow-sm" />
                     </div>
                     <span className="text-xs text-foreground/80 font-medium text-center leading-tight">{action.label}</span>
-                  </button>
-                ))}
+                  </button>)}
               </div>
             </div>
 
@@ -374,6 +347,5 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
           </div>
         </div>
       </div>
-    </SidebarProvider>
-  );
+    </SidebarProvider>;
 };
