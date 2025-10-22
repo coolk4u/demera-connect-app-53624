@@ -115,7 +115,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
         <div className="flex-1 min-h-screen bg-background pb-20">
           {/* Header */}
           <div 
-            className="p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10 relative overflow-hidden"
+            className="p-6 pb-8 rounded-b-[2rem] shadow-lg border-b border-primary-foreground/10 relative"
             style={{
               backgroundImage: `url(${background})`,
               backgroundSize: 'cover',
