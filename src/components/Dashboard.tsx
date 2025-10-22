@@ -198,19 +198,19 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
               </div>
 
               {/* Account Cards Carousel */}
-              <Carousel className="w-full max-w-full px-4">
-                <CarouselContent className="-ml-2">
+              <Carousel className="w-full max-w-full">
+                <CarouselContent className="-ml-3">
                   {accounts.map((account, index) => {
                     const isFlipped = flippedCards.has(index);
                     return (
-                      <CarouselItem key={index} className="pl-2 basis-[98%]">
+                      <CarouselItem key={index} className="pl-3 basis-full md:basis-[95%]">
                         <div 
-                          className="relative h-40 cursor-pointer perspective-1000"
+                          className="relative h-44 cursor-pointer perspective-1000"
                           onClick={() => toggleCardFlip(index)}
                         >
                           <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                             {/* Front of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden overflow-hidden">
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rounded-2xl" style={{ overflow: 'visible' }}>
                               <img 
                                 src={card} 
                                 alt="Card" 
@@ -237,7 +237,7 @@ export const Dashboard = ({ onNavigate, onAccountClick }: DashboardProps) => {
                             </Card>
                             
                             {/* Back of card */}
-                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rotate-y-180 overflow-hidden">
+                            <Card className="absolute inset-0 border-0 p-5 shadow-xl backface-hidden rotate-y-180 rounded-2xl" style={{ overflow: 'visible' }}>
                               <img 
                                 src={card} 
                                 alt="Card" 
