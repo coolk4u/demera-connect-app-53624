@@ -135,40 +135,40 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="bg-gradient-primary p-6 rounded-b-3xl shadow-lg">
-        <div className="flex items-center gap-4 mb-6">
+      <div className="bg-gradient-primary p-4 rounded-b-3xl shadow-lg">
+        <div className="flex items-center gap-3 mb-4">
           <Button
             size="icon"
             variant="ghost"
             onClick={onBack}
-            className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl"
+            className="text-primary-foreground hover:bg-primary-foreground/10 rounded-xl h-9 w-9"
           >
-            <ArrowLeft className="h-6 w-6" />
+            <ArrowLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-2xl font-bold text-primary-foreground">Transfer Money</h1>
+          <h1 className="text-xl font-bold text-primary-foreground">Transfer Money</h1>
         </div>
 
         {/* Transfer Type Selection */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           {transferTypes.map((type) => (
             <button
               key={type.id}
               onClick={() => setTransferType(type.id)}
-              className={`p-4 rounded-2xl flex flex-col items-center gap-2 transition-all ${
+              className={`p-3 rounded-xl flex flex-col items-center gap-1 transition-all ${
                 transferType === type.id
                   ? "bg-accent text-accent-foreground shadow-lg"
                   : "bg-primary-foreground/10 text-primary-foreground"
               }`}
             >
-              <type.icon className="h-6 w-6" />
-              <span className="text-sm font-medium">{type.label}</span>
-              <span className="text-xs opacity-70">{type.description}</span>
+              <type.icon className="h-5 w-5" />
+              <span className="text-xs font-medium">{type.label}</span>
+              <span className="text-[10px] opacity-70">{type.description}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="px-6 py-6 space-y-6">
+      <div className="px-4 py-4 space-y-4">
         {/* Own Transfer Review Screen */}
         {transferType === "own" && showReview && (
           <Card className="p-6 space-y-6">
@@ -236,18 +236,18 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
         {/* Own Transfer Form */}
         {transferType === "own" && !showReview && (
-          <Card className="p-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="fromAccount">From Account</Label>
+          <Card className="p-4 space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="fromAccount" className="text-sm">From Account</Label>
               <Select value={fromAccount} onValueChange={setFromAccount}>
-                <SelectTrigger id="fromAccount" className="h-12">
+                <SelectTrigger id="fromAccount" className="h-10">
                   <SelectValue placeholder="Select source account" />
                 </SelectTrigger>
                 <SelectContent>
                   {accounts.map((account) => (
                     <SelectItem key={account.id} value={account.id}>
                       <div className="flex flex-col">
-                        <span className="font-medium">{account.name}</span>
+                        <span className="font-medium text-sm">{account.name}</span>
                         <span className="text-xs text-muted-foreground">
                           {account.number} • ${account.balance}
                         </span>
@@ -258,17 +258,17 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="toAccount">To Account</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="toAccount" className="text-sm">To Account</Label>
               <Select value={toAccount} onValueChange={setToAccount}>
-                <SelectTrigger id="toAccount" className="h-12">
+                <SelectTrigger id="toAccount" className="h-10">
                   <SelectValue placeholder="Select destination account" />
                 </SelectTrigger>
                 <SelectContent>
                   {accounts.map((account) => (
                     <SelectItem key={account.id} value={account.id}>
                       <div className="flex flex-col">
-                        <span className="font-medium">{account.name}</span>
+                        <span className="font-medium text-sm">{account.name}</span>
                         <span className="text-xs text-muted-foreground">
                           {account.number} • ${account.balance}
                         </span>
@@ -279,24 +279,24 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount (GYD)</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="amount" className="text-sm">Amount (GYD)</Label>
               <Input
                 id="amount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="h-12 text-2xl font-semibold"
+                className="h-10 text-lg font-semibold"
               />
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 onClick={handleOwnTransferReview}
-                className="w-full h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
+                className="w-full h-10 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full text-sm"
               >
-                <Send className="mr-2 h-5 w-5" />
+                <Send className="mr-2 h-4 w-4" />
                 Transfer Between Accounts
               </Button>
             </div>
@@ -305,58 +305,58 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
         {/* Local Bank Transfer Form */}
         {transferType === "local" && (
-          <Card className="p-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="recipient">Recipient Name</Label>
+          <Card className="p-4 space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="recipient" className="text-sm">Recipient Name</Label>
               <Input
                 id="recipient"
                 placeholder="Enter recipient name"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="bankName">Bank Name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="bankName" className="text-sm">Bank Name</Label>
               <Input
                 id="bankName"
                 placeholder="Enter bank name"
                 value={bankName}
                 onChange={(e) => setBankName(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="account">Account Number</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="account" className="text-sm">Account Number</Label>
               <Input
                 id="account"
                 placeholder="Enter account number"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount (GYD)</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="amount" className="text-sm">Amount (GYD)</Label>
               <Input
                 id="amount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="h-12 text-2xl font-semibold"
+                className="h-10 text-lg font-semibold"
               />
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 onClick={handleExternalTransfer}
-                className="w-full h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
+                className="w-full h-10 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full text-sm"
               >
-                <Send className="mr-2 h-5 w-5" />
+                <Send className="mr-2 h-4 w-4" />
                 Send to Local Bank
               </Button>
             </div>
@@ -365,47 +365,47 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
         {/* Third Party Transfer Form */}
         {transferType === "third-party" && (
-          <Card className="p-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="recipient">Recipient Name</Label>
+          <Card className="p-4 space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="recipient" className="text-sm">Recipient Name</Label>
               <Input
                 id="recipient"
                 placeholder="Enter recipient name"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="account">Account Number</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="account" className="text-sm">Account Number</Label>
               <Input
                 id="account"
                 placeholder="Enter account number"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount (GYD)</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="amount" className="text-sm">Amount (GYD)</Label>
               <Input
                 id="amount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="h-12 text-2xl font-semibold"
+                className="h-10 text-lg font-semibold"
               />
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 onClick={handleExternalTransfer}
-                className="w-full h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
+                className="w-full h-10 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full text-sm"
               >
-                <Send className="mr-2 h-5 w-5" />
+                <Send className="mr-2 h-4 w-4" />
                 Send to Third Party
               </Button>
             </div>
@@ -414,69 +414,69 @@ export const TransferPage = ({ onBack }: TransferPageProps) => {
 
         {/* Wire Transfer Form */}
         {transferType === "wire" && (
-          <Card className="p-6 space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="recipient">Recipient Name</Label>
+          <Card className="p-4 space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="recipient" className="text-sm">Recipient Name</Label>
               <Input
                 id="recipient"
                 placeholder="Enter recipient name"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="bankName">Bank Name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="bankName" className="text-sm">Bank Name</Label>
               <Input
                 id="bankName"
                 placeholder="Enter bank name"
                 value={bankName}
                 onChange={(e) => setBankName(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="swiftCode">SWIFT/BIC Code</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="swiftCode" className="text-sm">SWIFT/BIC Code</Label>
               <Input
                 id="swiftCode"
                 placeholder="Enter SWIFT code"
                 value={swiftCode}
                 onChange={(e) => setSwiftCode(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="account">Account Number (IBAN)</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="account" className="text-sm">Account Number (IBAN)</Label>
               <Input
                 id="account"
                 placeholder="Enter IBAN"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                className="h-12"
+                className="h-10"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount (GYD)</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="amount" className="text-sm">Amount (GYD)</Label>
               <Input
                 id="amount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="h-12 text-2xl font-semibold"
+                className="h-10 text-lg font-semibold"
               />
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 onClick={handleExternalTransfer}
-                className="w-full h-12 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full"
+                className="w-full h-10 bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-full text-sm"
               >
-                <Send className="mr-2 h-5 w-5" />
+                <Send className="mr-2 h-4 w-4" />
                 Send Wire Transfer
               </Button>
             </div>
